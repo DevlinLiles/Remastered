@@ -1,4 +1,4 @@
-SWG Remastered# Remastered
+SWG Remastered
 
 This server, like all other private servers, would not be possible without the incredible and selfless work of the SWGEMU Team. Their work makes up probably 95% of the code base used in running this server. We used the MTG Consoidated TRE files, as the foundation for creating SWG Remastered. We also make use of the LUA work contained in their repo. So MTG easily contributes the other 5% of work, that was used in creating SWG Remastered.
 
