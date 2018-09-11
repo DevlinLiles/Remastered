@@ -6,13 +6,17 @@ package server.zone.objects.tangible.pharmaceutical;
 
 import server.zone.packets.scene.AttributeListMessage;
 import server.zone.objects.creature.CreatureObject;
+import server.zone.objects.player.PlayerObject;
 include system.lang.Math;
 import server.zone.objects.tangible.pharmaceutical.PharmaceuticalObject;
+include server.zone.objects.creature.buffs.Buff;
 include server.zone.objects.manufactureschematic.craftingvalues.CraftingValues;
 include templates.tangible.EnhancePackTemplate;
 include server.zone.objects.creature.BuffAttribute;
 include templates.SharedObjectTemplate;
 include system.lang.String;
+include system.util.Vector;
+
 
 class EnhancePack extends PharmaceuticalObject {
 	protected float effectiveness;
@@ -49,7 +53,22 @@ class EnhancePack extends PharmaceuticalObject {
 	@dirty
 	public void fillAttributeList(AttributeListMessage msg, CreatureObject object) {
 		super.fillAttributeList(msg, object);
+		
+		if(attribute == 11) {
+			for (int i = 0; i < 6; i++ ){
+				string attributeName = BuffAttribute.getName(i);
+				string enhace = "examine_enhance_" + attributeName;
+				string durationStr = "examine_duration_" + attributeName;
 
+				msg.insertAttribute(enhace, Math.getPrecision(effectiveness, 0));
+				msg.insertAttribute(durationStr, Math.getPrecision(duration, 0));
+
+				if (absorption > 0)
+					msg.insertAttribute("absorption", Math.getPrecision(absorption, 0));			
+			}
+			msg.insertAttribute("healing_ability", 0);		
+		}
+		else {
 		string attributeName = BuffAttribute.getName(attribute);
 		string enhace = "examine_enhance_" + attributeName;
 		string durationStr = "examine_duration_" + attributeName;
@@ -61,6 +80,7 @@ class EnhancePack extends PharmaceuticalObject {
 
 		if (absorption > 0)
 			msg.insertAttribute("absorption", Math.getPrecision(absorption, 0));
+		}
 	}
 
 	/**
@@ -85,7 +105,7 @@ class EnhancePack extends PharmaceuticalObject {
 		attribute = enhancePackTemplate.getAttribute();
 	}
 
-	/**
+		/**
 	 * Handles the radial selection sent by the client, must be overriden by inherited objects
 	 * @pre { this object is locked, player is locked }
 	 * @post { this object is locked, player is locked }
@@ -99,20 +119,48 @@ class EnhancePack extends PharmaceuticalObject {
 
 		if (selectedID != 20)
 			return 1;
+		if (attribute == 11){
+			super.medicineUseRequired = 0;
 
-		if (player.getSkillMod("healing_ability") < super.medicineUseRequired) {
-			player.sendSystemMessage("@error_message:insufficient_skill"); //You lack the skill to use this item.
+			enhanceCharacter(player, (int)effectiveness, (int)duration);
+			
+			player.sendSystemMessage("You have received buffs from your crafted buff pack");
+		
 
 			return 0;
-		} else {
-			player.sendCommand("healenhance", BuffAttribute.getName(attribute) + "|" + String.valueOf(super.getObjectID()), player.getTargetID());
+		}
+		else {
+			if (player.getSkillMod("healing_ability") < super.medicineUseRequired) {
+				player.sendSystemMessage("@error_message:insufficient_skill"); //You lack the skill to use this item.
 
-			return 0;
+				return 0;
+			} else {
+				player.sendCommand("healenhance", BuffAttribute.getName(attribute) + "|" + String.valueOf(super.getObjectID()), player.getTargetID());
+
+				return 0;
+			}
 		}
 	}
 
 	@dirty
 	public native unsigned int calculatePower(CreatureObject healer, CreatureObject patient, boolean applyBattleFatigue = true);
+
+	/**
+	 * Enhances the target character with doc/ent buffs
+	 * @pre { player is locked }
+	 * @post { player is locked }
+	 */
+	public native void enhanceCharacter(CreatureObject player, int amount, int duration);
+
+	/**
+	 * Creates and adds buff to Player
+	 * @pre { player is locked }
+	 * @post { player is locked }
+	 * @returns true if it was added
+	 * @param crc CRC of the buff, player target of buff, amount is the attribute modifier for the buff, duration of the buff, buffType specifies whether medical or performance and attribute sets the creature attribute to modify
+	 */
+	private native boolean doEnhanceCharacter(unsigned int crc, CreatureObject player, int amount, int duration, int buffType, byte attribute);
+
 
 	@dirty
 	public float getEffectiveness() {
@@ -136,6 +184,6 @@ class EnhancePack extends PharmaceuticalObject {
 
 	@dirty
 	public boolean isEnhancePack() {
-		return true;
+		return false;
 	}
 }

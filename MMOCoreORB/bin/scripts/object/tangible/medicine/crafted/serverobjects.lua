@@ -45,6 +45,7 @@
 --Children folder includes
 
 -- Server Objects
+includeFile("tangible/medicine/crafted/medpack_crafted_buff.lua")
 includeFile("tangible/medicine/crafted/crafted_stimpack_sm_s1_a.lua")
 includeFile("tangible/medicine/crafted/crafted_stimpack_sm_s1_b.lua")
 includeFile("tangible/medicine/crafted/crafted_stimpack_sm_s1_c.lua")

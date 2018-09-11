@@ -3,6 +3,7 @@
 #include "server/zone/managers/skill/SkillModManager.h"
 #include "server/zone/objects/building/BuildingObject.h"
 #include "server/zone/objects/player/FactionStatus.h"
+#include "server/zone/objects/creature/buffs/BuffType.h"
 
 uint32 EnhancePackImplementation::calculatePower(CreatureObject* healer, CreatureObject* patient, bool applyBattleFatigue) {
 		float power = getEffectiveness();
@@ -32,4 +33,37 @@ uint32 EnhancePackImplementation::calculatePower(CreatureObject* healer, Creatur
 		float modSkill = (float) healer->getSkillMod("healing_wound_treatment");
 
 		return power * modEnvironment * (100 + modSkill) / 100;
+}
+
+bool EnhancePackImplementation::doEnhanceCharacter(uint32 crc, CreatureObject* player, int amount, int duration, int buffType, uint8 attribute) {
+	if (player == NULL)
+		return false;
+
+	if (player->hasBuff(crc))
+		return false;
+
+	ManagedReference<Buff*> buff = new Buff(player, crc, duration, buffType);
+
+	Locker locker(buff);
+
+	buff->setAttributeModifier(attribute, amount);
+	player->addBuff(buff);
+
+	return true;
+}
+
+void EnhancePackImplementation::enhanceCharacter(CreatureObject* player, int amount, int duration) {
+	if (player == NULL)
+		return;
+
+	bool message = true;
+
+	message = message && doEnhanceCharacter(0x98321369, player, amount, duration, BuffType::MEDICAL, 0); // medical_enhance_health
+	message = message && doEnhanceCharacter(0x815D85C5, player, amount, duration, BuffType::MEDICAL, 1); // medical_enhance_strength
+	message = message && doEnhanceCharacter(0x7F86D2C6, player, amount, duration, BuffType::MEDICAL, 2); // medical_enhance_constitution
+	message = message && doEnhanceCharacter(0x4BF616E2, player, amount, duration, BuffType::MEDICAL, 3); // medical_enhance_action
+	message = message && doEnhanceCharacter(0x71B5C842, player, amount, duration, BuffType::MEDICAL, 4); // medical_enhance_quickness
+	message = message && doEnhanceCharacter(0xED0040D9, player, amount, duration, BuffType::MEDICAL, 5); // medical_enhance_stamina
+
+	return;
 }
