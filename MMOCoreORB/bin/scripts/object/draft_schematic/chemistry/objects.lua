@@ -9056,3 +9056,7 @@ object_draft_schematic_chemistry_shared_stimpack_sm_s1 = SharedDraftSchematicObj
 }
 
 ObjectTemplates:addClientTemplate(object_draft_schematic_chemistry_shared_stimpack_sm_s1, "object/draft_schematic/chemistry/shared_stimpack_sm_s1.iff")
+
+object_draft_schematic_chemistry_shared_medpack_crafted_buff = SharedDraftSchematicObjectTemplate:new {clientTemplateFileName = "object/draft_schematic/chemistry/shared_medpack_crafted_buff.iff"}
+
+ObjectTemplates:addClientTemplate(object_draft_schematic_chemistry_shared_medpack_crafted_buff, "object/draft_schematic/chemistry/shared_medpack_crafted_buff.iff")

@@ -15,6 +15,7 @@ schematics = {
 	{path="object/draft_schematic/structure/installation_mining_ore_elite.iff"},
 	{path="object/draft_schematic/weapon/blasterfist.iff"},
 	--{path="object/draft_schematic/weapon/rifle_trando_hunter_crafted.iff"},
+	{path="object/draft_schematic/chemistry/medpack_crafted_buff.iff"},
 --Default Schems
 	{path="object/draft_schematic/community_crafting/component/connections.iff"},
 	{path="object/draft_schematic/community_crafting/component/endrost.iff"},
