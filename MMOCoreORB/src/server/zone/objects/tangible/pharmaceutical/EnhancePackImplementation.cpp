@@ -35,11 +35,40 @@ uint32 EnhancePackImplementation::calculatePower(CreatureObject* healer, Creatur
 		return power * modEnvironment * (100 + modSkill) / 100;
 }
 
+uint32 EnhancePackImplementation::calculatePower(CreatureObject* healer) {
+		float power = getEffectiveness();
+
+		power *= healer->calculateBFRatio();
+
+		int droidBuff = healer->getSkillModOfType("private_medical_rating",SkillModManager::DROID);
+		int bldBuff = healer->getSkillModOfType("private_medical_rating", SkillModManager::STRUCTURE);
+		int mod = healer->getSkillModOfType("private_medical_rating", SkillModManager::CITY);
+		mod +=  droidBuff > bldBuff ? droidBuff : bldBuff;
+
+		int factionPerk = healer->getSkillMod("private_faction_medical_rating");
+
+		ManagedReference<BuildingObject*> building = cast<BuildingObject*>(healer->getRootParent());
+
+		if (building != NULL && factionPerk > 0 && building->isPlayerRegisteredWithin(healer->getObjectID())) {
+			unsigned int buildingFaction = building->getFaction();
+			unsigned int healerFaction = healer->getFaction();
+
+			if (healerFaction != 0 && healerFaction == buildingFaction && healer->getFactionStatus() == FactionStatus::OVERT) {
+				mod += factionPerk;
+			}
+		}
+
+		float modEnvironment = ((float) mod / 100);
+		float modSkill = (float) healer->getSkillMod("healing_wound_treatment");
+		if(modSkill <=  60){
+			return power * modEnvironment * (100 + modSkill + 75) / 100;	
+		} else {
+			return power * modEnvironment * (100 + modSkill) / 100;
+		}
+}
+
 bool EnhancePackImplementation::doEnhanceCharacter(uint32 crc, CreatureObject* player, int amount, int duration, int buffType, uint8 attribute) {
 	if (player == NULL)
-		return false;
-
-	if (player->hasBuff(crc))
 		return false;
 
 	ManagedReference<Buff*> buff = new Buff(player, crc, duration, buffType);
@@ -57,6 +86,8 @@ void EnhancePackImplementation::enhanceCharacter(CreatureObject* player, int amo
 		return;
 
 	bool message = true;
+
+	amount = calculatePower(player);
 
 	message = message && doEnhanceCharacter(0x98321369, player, amount, duration, BuffType::MEDICAL, 0); // medical_enhance_health
 	message = message && doEnhanceCharacter(0x815D85C5, player, amount, duration, BuffType::MEDICAL, 1); // medical_enhance_strength
