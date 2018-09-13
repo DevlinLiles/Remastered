@@ -4937,3 +4937,9 @@ object_tangible_loot_loot_schematic_shared_utensils_schematic = SharedTangibleOb
 }
 
 ObjectTemplates:addClientTemplate(object_tangible_loot_loot_schematic_shared_utensils_schematic, "object/tangible/loot/loot_schematic/shared_utensils_schematic.iff")
+
+object_tangible_loot_loot_schematic_shared_basilisk_war_droid = SharedTangibleObjectTemplate:new {
+	clientTemplateFileName = "object/tangible/loot/loot_schematic/shared_basilisk_war_droid.iff"
+}
+
+ObjectTemplates:addClientTemplate(object_tangible_loot_loot_schematic_shared_basilisk_war_droid, "object/tangible/loot/loot_schematic/shared_basilisk_war_droid.iff")
