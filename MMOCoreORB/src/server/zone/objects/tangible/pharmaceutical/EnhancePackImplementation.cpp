@@ -44,6 +44,7 @@ uint32 EnhancePackImplementation::calculatePower(CreatureObject* healer) {
 		int bldBuff = healer->getSkillModOfType("private_medical_rating", SkillModManager::STRUCTURE);
 		int mod = healer->getSkillModOfType("private_medical_rating", SkillModManager::CITY);
 		mod +=  droidBuff > bldBuff ? droidBuff : bldBuff;
+		if(mod == 0) mod = 100;
 
 		int factionPerk = healer->getSkillMod("private_faction_medical_rating");
 
