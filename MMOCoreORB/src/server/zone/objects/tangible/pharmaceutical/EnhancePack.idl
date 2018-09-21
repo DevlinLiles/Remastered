@@ -123,8 +123,7 @@ class EnhancePack extends PharmaceuticalObject {
 
 			enhanceCharacter(player, (int)effectiveness, (int)duration);
 			super.decreaseUseCount(1, true);
-			player.sendSystemMessage("You have received buffs from your crafted buff pack");
-		
+			player.sendSystemMessage("You have received buffs from your crafted buff pack");		
 
 			return 0;
 		}

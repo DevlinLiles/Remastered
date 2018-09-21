@@ -46,7 +46,7 @@ object_tangible_medicine_crafted_shared_crafted_buff = object_tangible_medicine_
 	templateType = ENHANCEPACK,
 	useCount = 21,
 	medicineUse = 0,
-	effectiveness = 200,
+	effectiveness = 700,
 	duration = 4500,
 	attribute = 11,
 
