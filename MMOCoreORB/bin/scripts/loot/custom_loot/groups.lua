@@ -17,7 +17,8 @@ includeFile("custom_loot/groups/armor/rebel_battle_gloves.lua")
 includeFile("custom_loot/groups/armor/rebel_battle_helmet.lua")
 includeFile("custom_loot/groups/armor/rebel_battle_leggings.lua")
 
-
+-- Schematics
+includeFile("custom_loot/groups/loot_schematics/lootable_schematics.lua")
 
 
 includeFile("custom_loot/groups/backpacks/g_ep3_chiss_poacher_backpack.lua")
@@ -134,9 +135,9 @@ includeFile("custom_loot/groups/weapons/melee/g_pvp_bf_knuckler.lua")
 includeFile("custom_loot/groups/weapons/melee/g_som_2h_sword_massassi.lua")
 includeFile("custom_loot/groups/weapons/melee/g_som_2h_sword_obsidian.lua")
 includeFile("custom_loot/groups/weapons/melee/g_som_sword_obsidian.lua")
---includeFile("custom_loot/groups/weapons/g_sword_lightsaber_one_handed_gcw_s01_gen5.lua")
---includeFile("custom_loot/groups/weapons/g_sword_lightsaber_polearm_gen4_heroic.lua")
---includeFile("custom_loot/groups/weapons/g_sword_lightsaber_ranged_donotuse_s01.lua")
+includeFile("custom_loot/groups/weapons/g_sword_lightsaber_one_handed_gcw_s01_gen5.lua")
+includeFile("custom_loot/groups/weapons/g_sword_lightsaber_polearm_gen4_heroic.lua")
+includeFile("custom_loot/groups/weapons/g_sword_lightsaber_ranged_donotuse_s01.lua")
 includeFile("custom_loot/groups/weapons/melee/g_sword_mace_junti.lua")
 includeFile("custom_loot/groups/weapons/melee/g_sword_mandalorian.lua")
 includeFile("custom_loot/groups/weapons/melee/g_sword_massassi.lua")
