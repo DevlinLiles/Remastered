@@ -450,3 +450,6 @@ includeFile("custom_loot/items/weapons/wod_war_fan.lua")
 includeFile("custom_loot/items/weapons/wookiee_knuckler.lua")
 includeFile("custom_loot/items/weapons/wookiee_knuckler_wod.lua")
 includeFile("custom_loot/items/weapons/xantha_smasher.lua")
+
+-- Loot Schematics
+includeFile("custom_loot/items/loot_schematic/basilisk_war_droid_schematic.lua")
