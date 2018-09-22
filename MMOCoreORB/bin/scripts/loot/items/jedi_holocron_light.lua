@@ -8,7 +8,10 @@ jedi_holocron_light = {
 	craftingValues = {
 	},
 	customizationStringNames = {},
-	customizationValues = {}
+	customizationValues = {},
+	skillMods = {
+
+	}
 }
 
 addLootItemTemplate("jedi_holocron_light", jedi_holocron_light)

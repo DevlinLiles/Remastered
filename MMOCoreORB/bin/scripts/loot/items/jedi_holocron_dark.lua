@@ -8,7 +8,10 @@ jedi_holocron_dark = {
 	craftingValues = {
 	},
 	customizationStringNames = {},
-	customizationValues = {}
+	customizationValues = {},
+	skillMods = {
+
+	}
 }
 
 addLootItemTemplate("jedi_holocron_dark", jedi_holocron_dark)

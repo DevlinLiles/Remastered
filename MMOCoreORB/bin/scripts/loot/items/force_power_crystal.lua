@@ -9,7 +9,10 @@ force_power_crystal = {
 		{"color",31,31,0},
 	},
 	customizationStringNames = {},
-	customizationValues = {}
+	customizationValues = {},
+	skillMods = {
+
+	}
 }
 
 addLootItemTemplate("force_power_crystal", force_power_crystal)

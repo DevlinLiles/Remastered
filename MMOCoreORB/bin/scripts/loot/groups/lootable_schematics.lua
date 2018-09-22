@@ -5,7 +5,7 @@ lootable_schematics = {
 	minimumLevel = 0,
 	maximumLevel = 0,
 	lootItems = {
-		{itemTemplate = "basilisk_war_droid_schematic", weight = 600000},
+		{itemTemplate = "basilisk_war_droid_schematic", weight = 10000000}
 	}
 }
 
