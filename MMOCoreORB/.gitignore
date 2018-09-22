@@ -16,7 +16,6 @@ src/client/configure
 src/client/build/*
 INSTALL
 .settings/*
-.vscode/*
 .sw*
 Doxyfile
 bin/*.log
